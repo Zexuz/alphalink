@@ -39,4 +39,9 @@ jobs:
         with:
           src: diagram.drawio
           dest: diagramm.png
+      - uses: actions/upload-artifact@v3
+        with:
+          name: drawio
+          path: diagramm.png
+
         
