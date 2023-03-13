@@ -37,6 +37,6 @@ jobs:
       - name: actions-drawio
         uses: Burnett01/actions-drawio@1.2
         with:
-          src: Untitled Diagram.drawio
+          src: diagram.drawio
           dest: diagramm.png
         
