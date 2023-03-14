@@ -1,0 +1,23 @@
+{
+  "name": "alphalink",
+  "version": "1.0.0",
+  "description": "https://www.notion.so/Non-custodial-crypto-wallet-a31c8588e898425ca439eee47cd8f90b?pvs=4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zexuz/alphalink.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zexuz/alphalink/issues"
+  },
+  "homepage": "https://github.com/Zexuz/alphalink#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.13.0"
+  }
+}
