@@ -4,7 +4,9 @@
   "description": "https://www.notion.so/Non-custodial-crypto-wallet-a31c8588e898425ca439eee47cd8f90b?pvs=4",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "hardhat run scripts/deploy.ts",
+    "compile": "hardhat compile"
   },
   "repository": {
     "type": "git",
