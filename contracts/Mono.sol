@@ -98,6 +98,10 @@ contract Mono {
         return bondTreasury;
     }
 
+    function getBonds() public view returns (Bond[] memory) {
+        return bonds[msg.sender];
+    }
+
     //============== Mint/Burn bond ==============
 
     //============== Liquidate bond ==============

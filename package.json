@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "hardhat run scripts/deploy.ts",
-    "compile": "hardhat compile"
+    "deploy:local": "hardhat run scripts/deploy.ts --network localhost",
+    "compile": "hardhat compile",
+    "local": "hardhat node"
   },
   "repository": {
     "type": "git",
