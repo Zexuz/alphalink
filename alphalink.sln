@@ -1,0 +1,28 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphalink.Domain.Core", "Alphalink.Domain.Core\Alphalink.Domain.Core.csproj", "{7B8B40BD-D09E-49B8-B764-85C0824EB3DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplhalink.Api.Core", "Aplhalink.Api.Core\Aplhalink.Api.Core.csproj", "{AED204EB-09E9-4E0E-BFE0-088D687F9A97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alphalink.Repository.Core", "Alphalink.Repository.Core\Alphalink.Repository.Core.csproj", "{A59182E6-302A-4500-9148-C953CB81757A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B8B40BD-D09E-49B8-B764-85C0824EB3DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B8B40BD-D09E-49B8-B764-85C0824EB3DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B8B40BD-D09E-49B8-B764-85C0824EB3DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B8B40BD-D09E-49B8-B764-85C0824EB3DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AED204EB-09E9-4E0E-BFE0-088D687F9A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AED204EB-09E9-4E0E-BFE0-088D687F9A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AED204EB-09E9-4E0E-BFE0-088D687F9A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AED204EB-09E9-4E0E-BFE0-088D687F9A97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A59182E6-302A-4500-9148-C953CB81757A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59182E6-302A-4500-9148-C953CB81757A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59182E6-302A-4500-9148-C953CB81757A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59182E6-302A-4500-9148-C953CB81757A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
