@@ -26,14 +26,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd5b5a794abf92d1ebaf14c55f4f645e52a56df3498aa2de75d0b8e2cfa6e/BsonClassMap.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c4bf5b7e1f6dad83b16c10e468186df52ccb21277b3e31a56c4178a97/MongoClient.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Alphalink.Repository.Core/MongoDB/Document.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Alphalink.Repository.Core/MongoDB/MongoRepository.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Aplhalink.Api.Core/Controllers/Robin.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Aplhalink.Api.Core/Controllers/WeatherForecastController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Aplhalink.Api.Core/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Aplhalink.Api.Core/WeatherForecast.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -51,6 +45,7 @@
     "WebServerToolWindowFactoryState": "false",
     "XThreadsFramesViewSplitterKey": "0.4885321",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/robin/work/alphalink/alphalink.sln",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -125,6 +120,7 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
@@ -134,14 +130,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Aplhalink.Api.Core/Controllers/Robin.cs</url>
           <line>28</line>
-          <properties documentPath="$PROJECT_DIR$/Aplhalink.Api.Core/Controllers/Robin.cs" initialLine="28" containingFunctionPresentation="Method 'Get'">
-            <startOffsets>
-              <option value="704" />
-            </startOffsets>
-            <endOffsets>
-              <option value="793" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="$PROJECT_DIR$/Aplhalink.Api.Core/Controllers/Robin.cs" initialLine="28" containingFunctionPresentation="Method 'Get'" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

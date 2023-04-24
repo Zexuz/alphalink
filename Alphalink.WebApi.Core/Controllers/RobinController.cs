@@ -8,22 +8,18 @@ namespace Alphalink.WebApi.Core.Controllers;
 public class RobinController : ControllerBase
 {
     private readonly ILogger<RobinController> _logger;
+    private readonly IMongoRepository<RobinDocument> _robinRepository;
 
-    public RobinController(ILogger<RobinController> logger)
+    public RobinController(ILogger<RobinController> logger, IMongoRepository<RobinDocument> robinRepository)
     {
+        _robinRepository = robinRepository;
         _logger = logger;
     }
 
     [HttpGet(Name = "GetNames")]
     public IEnumerable<RobinModel> Get()
     {
-        var mongoDbSettings = new MongoDbSettings
-        {
-            ConnectionString = "mongodb://localhost:27017",
-            DatabaseName = "RobinTestDatabase"
-        };
-        return new RobinService(new MongoRepository<RobinDocument>(mongoDbSettings)).GetAll()
-            .Select(x => new RobinModel { Name = x.Name });
+        return _robinRepository.AsQueryable().Select(x => new RobinModel { Name = x.Name });
     }
 }
 
