@@ -25,20 +25,40 @@ public class BoundController : ControllerBase
             Bounds = new List<string>()
         };
 
-        customer.Bounds.Add(model.Bound);
+        customer.Bounds.AddRange(model.Bounds);
         await _customerRepository.InsertOneAsync(customer);
-        return new UpdateBoundResponseModel
-            { Bound = model.Bound, EthAddress = model.EthAddress, Id = customer.Id.ToString() };
+        return new UpdateBoundResponseModel(model, customer.Id.ToString());
     }
+}
+
+public struct UpdateBoundModelStruct
+{
+    public UpdateBoundModelStruct(string aSd)
+    {
+        ASd = aSd;
+    }
+
+    public string ASd { get; set; }
 }
 
 public class UpdateBoundModel
 {
-    public string EthAddress { get; set; }
-    public string Bound { get; set; }
+    public string EthAddress { get; }
+    public List<string> Bounds { get; }
+
+    public UpdateBoundModel(string ethAddress, List<string> bounds)
+    {
+        EthAddress = ethAddress;
+        Bounds = bounds;
+    }
 }
 
 public class UpdateBoundResponseModel : UpdateBoundModel
 {
     public string Id { get; set; }
+
+    public UpdateBoundResponseModel(UpdateBoundModel model, string id) : base(model.EthAddress, model.Bounds)
+    {
+        Id = id;
+    }
 }
