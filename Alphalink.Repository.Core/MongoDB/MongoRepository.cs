@@ -50,9 +50,9 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
         return _collection.Find(filterExpression).FirstOrDefault();
     }
 
-    public virtual Task<TDocument> FindOneAsync(Expression<Func<TDocument, bool>> filterExpression)
+    public virtual Task<TDocument?> FindOneAsync(Expression<Func<TDocument, bool>> filterExpression)
     {
-        return Task.Run(() => _collection.Find(filterExpression).FirstOrDefaultAsync());
+        return Task.Run(() => _collection.Find(filterExpression).FirstOrDefaultAsync())!;
     }
 
     public virtual TDocument FindById(string id)

@@ -19,6 +19,6 @@ public class AutofacModule : Module
             ConnectionString = "mongodb://localhost:27017",
             DatabaseName = "RobinTestDatabase"
         }).As<IMongoDbSettings>();
-        builder.RegisterType<MongoRepository<RobinDocument>>().As<IMongoRepository<RobinDocument>>();
+        builder.RegisterGeneric(typeof(MongoRepository<>)).As(typeof(IMongoRepository<>)).InstancePerLifetimeScope();
     }
 }
