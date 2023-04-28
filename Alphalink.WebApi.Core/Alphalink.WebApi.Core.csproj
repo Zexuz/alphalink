@@ -9,12 +9,19 @@
     <ItemGroup>
         <PackageReference Include="Autofac" Version="7.0.1" />
         <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.52.0" />
+        <PackageReference Include="Grpc.AspNetCore.Web" Version="2.52.0" />
+        <PackageReference Include="Grpc.Net.Client.Web" Version="2.52.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Alphalink.Domain.Core\Alphalink.Domain.Core.csproj" />
+        <ProjectReference Include="..\Alphalink.Domain.Core\Alphalink.Domain.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="Protos\*.proto" />
     </ItemGroup>
 
 </Project>
