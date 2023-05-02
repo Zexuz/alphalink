@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using Alphalink.Domain.Core;
 using Grpc.Core;
 using Grpc.Net.Client;
@@ -25,13 +26,9 @@ public class RobinController : ControllerBase
         var handler = new GrpcWebHandler(GrpcWebMode.GrpcWebText,
             new HttpClientHandler
             {
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
             });
 
-        var channel = GrpcChannel.ForAddress("https://localhost:8082", new GrpcChannelOptions
-        {
-            HttpClient = new HttpClient(handler)
-        });
+        var channel = GrpcChannel.ForAddress("https://localhost:8082", new GrpcChannelOptions { });
 
         var client = new Greeter.GreeterClient(channel);
 

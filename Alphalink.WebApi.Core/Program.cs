@@ -29,12 +29,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-//Use http 2.0
-app.UseGrpcWeb(new GrpcWebOptions { DefaultEnabled = true });
-
 app.UseRouting();
 
-// Add gRPC-Web middleware after routing and before endpoints
 app.UseGrpcWeb(new GrpcWebOptions{DefaultEnabled = true});
 
 app.MapGrpcService<GreeterController>(); // Replace YourGrpcService with the actual gRPC service implementation class
