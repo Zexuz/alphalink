@@ -1,4 +1,5 @@
 using Alphalink.WebApi.Core;
+using Alphalink.WebApi.Core.Controllers;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(autofac
 
 
 builder.Services.AddControllers();
+builder.Services.AddGrpc();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,6 +28,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseRouting();
+
+app.UseGrpcWeb(new GrpcWebOptions{DefaultEnabled = true});
+
+app.MapGrpcService<GreeterController>(); // Replace YourGrpcService with the actual gRPC service implementation class
 
 app.MapControllers();
 

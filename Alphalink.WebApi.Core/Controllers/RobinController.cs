@@ -1,4 +1,8 @@
+using System.Collections.Immutable;
 using Alphalink.Domain.Core;
+using Grpc.Core;
+using Grpc.Net.Client;
+using Grpc.Net.Client.Web;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alphalink.WebApi.Core.Controllers;
@@ -17,8 +21,20 @@ public class RobinController : ControllerBase
     }
 
     [HttpGet(Name = "GetNames")]
-    public IEnumerable<RobinModel> Get()
+    public async Task<IEnumerable<RobinModel>> Get()
     {
+        var handler = new GrpcWebHandler(GrpcWebMode.GrpcWebText,
+            new HttpClientHandler
+            {
+            });
+
+        var channel = GrpcChannel.ForAddress("https://localhost:8082", new GrpcChannelOptions { });
+
+        var client = new Greeter.GreeterClient(channel);
+
+        var res = await client.SayHelloAsync(new HelloRequest { Name = "RObin" });
+        Console.WriteLine($"Greeting: {res.Message}");
+
         return _robinRepository.AsQueryable().Select(x => new RobinModel { Name = x.Name });
     }
 }
