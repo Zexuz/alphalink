@@ -1,71 +1,91 @@
 <script lang="ts">
-    import Web3 from "web3";
-    import {onMount} from "svelte";
-    import {MonoContract} from "../../lib/service";
-    import Mono from "../../../../artifacts/contracts/Mono.sol/Mono.json"
-    import Button, {Label} from "@smui/button";
+  import Web3 from "web3";
+  import { onMount } from "svelte";
+  import type { Bond } from "../../lib/service";
+  import { MonoContract } from "../../lib/service";
+  import { getFirstAccount } from "../../lib/service/crypto";
+  import Mono from "../../../../artifacts/contracts/Mono.sol/Mono.json";
+  import Button, { Label } from "@smui/button";
+  import Center from "../../lib/components/center.svelte";
+  import Bonds from "../../lib/components/bonds.svelte";
 
-    const web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
+  let bonds: Bond[] = [];
 
-    const contractAddress = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0';
+  const web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
 
-    async function getFirstAccount() {
-        const accounts = await web3.eth.getAccounts();
-        const account = accounts[0];
-        console.log(account);
-        return account;
-    }
+  const contractAddress = "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f";
 
-    const contractService = new MonoContract(contractAddress, Mono.abi, web3);
 
-    let currentAccount = "UNKNOW";
-    let depositBalance = 0;
-    let nrOfBonds = 0;
+  const contractService = new MonoContract(contractAddress, Mono.abi, web3);
 
-    onMount(async () => {
-        currentAccount = await getFirstAccount();
-    });
+  let currentAccount = "UNKNOW";
+  let depositBalance = 0;
+  let nrOfBonds = 0;
 
-    async function deposit() {
-        const account = await getFirstAccount();
-        const amount = Web3.utils.toWei("1", 'ether')
-        await contractService.deposit(account, amount);
-    }
+  onMount(async () => {
+    currentAccount = await getFirstAccount();
+  });
 
-    async function withdraw() {
-        const account = await getFirstAccount();
-        const amount = Web3.utils.toWei("1", 'ether')
-        await contractService.withdrawal(account, amount);
-    };
+  async function getBalance() {
+    depositBalance = await contractService.getBalance();
+  }
 
-    async function getNrOfBondsYouOwn() {
-        const account = await getFirstAccount();
-        const value = await contractService.getNrOfBondsMinted(account);
-        nrOfBonds = value;
-    }
+  async function deposit() {
+    const account = await getFirstAccount();
+    const amount = Web3.utils.toWei("1", "ether");
+    await contractService.deposit(account, amount);
+  }
 
-    async function mintBond() {
-        const account = await getFirstAccount();
-        await contractService.mintBond(account);
-    }
+  async function withdraw() {
+    const account = await getFirstAccount();
+    const amount = Web3.utils.toWei("1", "ether");
+    await contractService.withdrawal(account, amount);
+  };
+
+  async function getNrOfBondsYouOwn() {
+    const account = await getFirstAccount();
+    const value = await contractService.getNrOfBondsMinted(account);
+    nrOfBonds = value;
+  }
+
+  async function getBoundsForUser() {
+    console.log(`Bounds 1: ${bonds}`);
+    const account = await getFirstAccount();
+    bonds = await contractService.getBonds(account);
+    console.log(`Bounds: ${bonds[0]}`);
+  }
+
+
+  async function mintBond() {
+    const account = await getFirstAccount();
+    await contractService.mintBond(account);
+  }
+
 
 </script>
 
 <svelte:head>
-    <title>Dashboard</title>
-    <meta name="description" content="Main overview"/>
+  <title>Dashboard</title>
+  <meta name="description" content="Main overview" />
 </svelte:head>
 
-<div class="text-column">
-    <h1>Dashboard</h1>
+<div>
+  <h1 class="text">Dashboard</h1>
+  <Center>
     <p>Current Account: {currentAccount}</p>
-    <Button on:click={() => deposit()} variant="raised">
-        <Label>Depisit</Label>
-    </Button>
-    <Button on:click={deposit}>Deposit</Button>
-    <Button on:click={withdraw}>Withdraw</Button>
-    <Button on:click={getNrOfBondsYouOwn}>Get Number of Bonds</Button>
-    <Button on:click={mintBond}>Mint Bond</Button>
-    <p>Balance: {depositBalance}</p>
-    <p>Number of Bonds: {nrOfBonds}</p>
+  </Center>
+  <Button on:click={() => deposit()} variant="raised">
+    <Label>Deposit</Label>
+  </Button>
+  <Button on:click={withdraw}>Withdraw</Button>
+  <Button on:click={getBoundsForUser}>Get Bounds</Button>
+  <Button on:click={getBalance}>Get Balance</Button>
+  <Button on:click={getNrOfBondsYouOwn}>Get Number of Bonds</Button>
+  <Button on:click={mintBond}>Mint Bond</Button>
+  <p>Balance: {depositBalance}</p>
+  <p>Number of Bonds: {nrOfBonds}</p>
+
+
+  <Bonds bonds="{bonds}" />
+
 </div>
