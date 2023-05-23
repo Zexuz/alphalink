@@ -44,7 +44,7 @@ app.UseRouting();
 
 app.UseGrpcWeb(new GrpcWebOptions { DefaultEnabled = true });
 
-app.MapGrpcService<GreeterController>().; // Replace YourGrpcService with the actual gRPC service implementation class
+app.MapGrpcService<GreeterController>(); // Replace YourGrpcService with the actual gRPC service implementation class
 
 app.MapControllers();
 
