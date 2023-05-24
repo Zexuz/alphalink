@@ -1,7 +1,10 @@
 import { useWallet } from "../context/WalletContext.tsx";
-import { Button, Input } from "@mui/material";
+import { Input } from "@mui/material";
 import useGreeter from "../hooks/useGreeter.ts";
 import { useState } from "react";
+import { CustomButton } from "../components/CustomButton";
+import { SmartContract } from "./smartContract.tsx";
+
 
 const dashboard = () => {
   const wallet = useWallet();
@@ -27,12 +30,14 @@ const dashboard = () => {
     <>
       <h1>Dashboard</h1>
       <h2>Current Account: {wallet.address}</h2>
-      <Button variant="contained" onClick={sendMessage}>Send Message</Button>
+      <CustomButton onClick={sendMessage}>Send Message</CustomButton>
       <Input value={message} onChange={(e) => setMessage(e.target.value)} />
 
       <RenderMessage />
+      <SmartContract />
     </>
   );
 };
+
 
 export default dashboard;
