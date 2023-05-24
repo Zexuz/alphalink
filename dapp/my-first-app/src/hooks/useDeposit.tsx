@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { parseUnits } from "ethers";
+import { BigNumberish, parseUnits } from "ethers";
 
 export const useDeposit = (contract: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,4 +25,10 @@ export const useDeposit = (contract: any) => {
     isLoading,
     error
   };
+};
+
+export const useOnDeposit = (contract: any, address: string) => {
+  contract.on("Deposit", (amount: BigNumberish, from: string, timestamp: string) => {
+    console.log(`Deposit event: amount: ${amount} from: ${from} timestamp: ${timestamp}`);
+  });
 };

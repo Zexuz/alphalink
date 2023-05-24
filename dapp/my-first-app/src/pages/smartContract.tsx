@@ -4,7 +4,17 @@ import { Grid } from "@mui/material";
 import { CustomButton } from "../components/CustomButton.tsx";
 
 export const SmartContract = () => {
-  const { getBalance, deposit: useDeposit, withdraw: useWithdraw } = useContract();
+  const onBalanceChanged = () => {
+    getBalance.call();
+  };
+
+  const events = {
+    onDeposit: onBalanceChanged,
+    onWithdrawal: onBalanceChanged
+  };
+
+
+  const { getBalance, deposit: useDeposit, withdraw: useWithdraw } = useContract({ events });
 
   const deposit = () => {
     useDeposit.call();
