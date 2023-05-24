@@ -4,17 +4,8 @@ import { Grid } from "@mui/material";
 import { CustomButton } from "../components/CustomButton.tsx";
 
 export const SmartContract = () => {
-  const onBalanceChanged = () => {
-    getBalance.call();
-  };
 
-  const events = {
-    onDeposit: onBalanceChanged,
-    onWithdrawal: onBalanceChanged
-  };
-
-
-  const { getBalance, deposit: useDeposit, withdraw: useWithdraw } = useContract({ events });
+  const { balance, deposit: useDeposit, withdraw: useWithdraw } = useContract();
 
   const deposit = () => {
     useDeposit.call();
@@ -26,19 +17,15 @@ export const SmartContract = () => {
     useWithdraw.call();
   };
 
-  const onGetBalanceClicked = () => {
-    getBalance.call();
-  };
-
 
   return (
     <>
       <h2>Smart Contract</h2>
-      <DisplayBalance {...getBalance} />
+      <DisplayBalance {...balance} />
       <Grid container spacing={2}>
-        <Grid item md={12}>
-          <CustomButton onClick={onGetBalanceClicked}>Get Balance</CustomButton>
-        </Grid>
+        {/*<Grid item md={12}>*/}
+        {/*  <CustomButton onClick={onGetBalanceClicked}>Get Balance</CustomButton>*/}
+        {/*</Grid>*/}
         <Grid item xs={6} md={6}>
           <CustomButton onClick={deposit}>Deposit</CustomButton>
         </Grid>

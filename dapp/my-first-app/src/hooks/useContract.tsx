@@ -7,34 +7,52 @@ import { useWithdrawal } from "./useWithdrawal.tsx";
 import { HexString } from "./hexString.tsx";
 
 
-export interface IContractCall<TIn, TOut, > {
-  call: (args?: TIn) => void;
+export interface IContractBase<TOut> {
   data?: TOut;
   isLoading: boolean;
   error: Error | null;
 }
 
+export interface IContractCall<TIn, TOut> extends IContractBase<TOut> {
+  call: (args?: TIn) => void;
+}
+
 
 export interface IContract {
   isReady: boolean;
-  getBalance: IContractCall<null, HexString>;
+  balance: IContractBase<HexString>;
   deposit: IContractCall<string, null>;
   withdraw: IContractCall<string, null>;
 }
 
-interface IUseContractProps {
-  events?: {
-    onWithdrawal: () => void | null;
-    onDeposit: () => void | null;
-  };
-}
+// interface ContractContextType {
+//   isReady: boolean;
+//   balance: HexString | null;
+//   deposit: IContractCall<string, null> | null;
+//   withdraw: IContractCall<string, null> | null;
+// }
+//
+// const ContractContext = createContext<ContractContextType>({
+//   isReady: false,
+//   balance: null,
+//   deposit: null,
+//   withdraw: null,
+// });
+
 
 /// TODO This should be a context, not a hook
-export const useContract = ({ events }: IUseContractProps): IContract => {
+export const useContract = (): IContract => {
   const [signer, setSigner] = useState<any>(null);
   const abi = Mono.abi;
   const contractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
   const provider = new JsonRpcProvider("http://localhost:8545");
+
+  const contract = new Contract(contractAddress, abi, signer);
+
+  const deposit = useDeposit(contract);
+  const withdrawal = useWithdrawal(contract);
+  const getBalance = useGetBalance(contract);
+
 
   const [isListeningForDeposit, setIsListeningForDeposit] = useState<boolean>(false);
   const [isListeningForWithdrawal, setIsListeningForWithdrawal] = useState<boolean>(false);
@@ -54,7 +72,7 @@ export const useContract = ({ events }: IUseContractProps): IContract => {
     if (!isListeningForDeposit) {
       contract.on("Deposit", (amount: BigNumberish, from: string, timestamp: string) => {
         console.log(`Deposit event: amount: ${amount} from: ${from} timestamp: ${timestamp}`);
-        events?.onDeposit?.();
+        getBalance.call();
       });
       setIsListeningForDeposit(true);
     }
@@ -62,21 +80,15 @@ export const useContract = ({ events }: IUseContractProps): IContract => {
     if (!isListeningForWithdrawal) {
       contract.on("Withdrawal", (amount: BigNumberish, to: string, timestamp: string) => {
         console.log(`Withdrawal event: amount: ${amount} to: ${to} timestamp: ${timestamp}`);
-        events?.onWithdrawal?.();
+        getBalance.call();
       });
       setIsListeningForWithdrawal(true);
     }
   }, [signer, isListeningForDeposit]);
 
-
-  const contract = new Contract(contractAddress, abi, signer);
-  const getBalance = useGetBalance(contract);
-  const deposit = useDeposit(contract);
-  const withdrawal = useWithdrawal(contract);
-
   return {
     isReady: signer !== null,
-    getBalance: getBalance,
+    balance: { data: getBalance.data, isLoading: getBalance.isLoading, error: getBalance.error },
     deposit: deposit,
     withdraw: withdrawal
   };

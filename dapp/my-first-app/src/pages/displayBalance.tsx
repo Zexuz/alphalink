@@ -1,7 +1,7 @@
-import { IContractCall } from "../hooks/useContract.tsx";
+import { IContractBase } from "../hooks/useContract.tsx";
 import { formatEther } from "ethers";
 
-export const DisplayBalance = ({ error, isLoading, data }: IContractCall<null, string>) => {
+export const DisplayBalance = ({ error, isLoading, data }: IContractBase<string>) => {
 
   if (isLoading) return <p>Loading...</p>;
 
