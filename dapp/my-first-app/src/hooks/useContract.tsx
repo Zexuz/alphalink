@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import {BigNumberish, Contract, JsonRpcProvider} from "ethers";
+import {useEffect, useState} from "react";
 import Mono from "../../../artifacts/contracts/Mono.sol/Mono.json";
-import { BigNumberish, Contract, JsonRpcProvider } from "ethers";
-import { useGetBalance } from "./useGetBalance.tsx";
-import { useDeposit } from "./useDeposit.tsx";
-import { useWithdrawal } from "./useWithdrawal.tsx";
-import { HexString } from "./hexString.tsx";
+import {setValue} from "../store/counterSlize.ts";
+import {HexString} from "./hexString.tsx";
+import {useAppDispatch} from "./storeHooks.ts";
+import {useDeposit} from "./useDeposit.tsx";
+import {useGetBalance} from "./useGetBalance.tsx";
+import {useWithdrawal} from "./useWithdrawal.tsx";
 
 
 export interface IContractBase<TOut> {
@@ -46,6 +48,7 @@ export const useContract = (): IContract => {
   const abi = Mono.abi;
   const contractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
   const provider = new JsonRpcProvider("http://localhost:8545");
+  const dispatch = useAppDispatch();
 
   const contract = new Contract(contractAddress, abi, signer);
 
@@ -69,10 +72,16 @@ export const useContract = (): IContract => {
   useEffect(() => {
     if (!signer) return;
 
+    const getAndSetBalance = async () => {
+      contract.getBalance().then((res: HexString) => {
+        dispatch(setValue(res.toString()));
+      })
+    }
+
     if (!isListeningForDeposit) {
       contract.on("Deposit", (amount: BigNumberish, from: string, timestamp: string) => {
         console.log(`Deposit event: amount: ${amount} from: ${from} timestamp: ${timestamp}`);
-        getBalance.call();
+        getAndSetBalance();
       });
       setIsListeningForDeposit(true);
     }
@@ -80,7 +89,7 @@ export const useContract = (): IContract => {
     if (!isListeningForWithdrawal) {
       contract.on("Withdrawal", (amount: BigNumberish, to: string, timestamp: string) => {
         console.log(`Withdrawal event: amount: ${amount} to: ${to} timestamp: ${timestamp}`);
-        getBalance.call();
+        getAndSetBalance();
       });
       setIsListeningForWithdrawal(true);
     }
@@ -88,7 +97,7 @@ export const useContract = (): IContract => {
 
   return {
     isReady: signer !== null,
-    balance: { data: getBalance.data, isLoading: getBalance.isLoading, error: getBalance.error },
+    balance: {data: getBalance.data, isLoading: getBalance.isLoading, error: getBalance.error},
     deposit: deposit,
     withdraw: withdrawal
   };

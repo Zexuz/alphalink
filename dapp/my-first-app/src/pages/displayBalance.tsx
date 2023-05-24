@@ -1,15 +1,18 @@
-import { IContractBase } from "../hooks/useContract.tsx";
-import { formatEther } from "ethers";
+import {formatEther} from "ethers";
+import {useAppSelector} from "../hooks/storeHooks.ts";
 
-export const DisplayBalance = ({ error, isLoading, data }: IContractBase<string>) => {
+export const DisplayBalance = () => {
+  const {value, hasFetchedInitialBalance} = useAppSelector((state) => state.balance);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (hasFetchedInitialBalance) return <p>Loading...</p>;
 
-  if (error) return <p>Error: {error.message}</p>;
+  console.log(`value: ${value}`);
 
-  if (!data) return <p>No data</p>;
+  if (!value) return (<p>Balance: 0 ETH</p>);
+
+  const balanceStr = `${formatEther(value)} ETH`;
 
   return (
-    <p>Balance: {data ? `${formatEther(data)} ETH` : "unknown"}</p>
+    <p>Balance: {balanceStr}</p>
   );
 };
